@@ -1,5 +1,6 @@
 const yauzl = require('yauzl');
 const fs = require('fs');
+const promisify = require('util').promisify;
 
 const simpleZipBuffer = fs.readFileSync('./test_ca.zip');
 
@@ -14,16 +15,16 @@ const simpleZipBuffer = fs.readFileSync('./test_ca.zip');
 //   0,0,0,1,0,1,0,51,0,0,0,57,0,0,0,0,0
 // ]);
 
-function promisify(api){
-  return function(...args){
-    return new Promise(function(resolve, reject){
-      api(...args, function(err, response){
-        if(err) return reject(err);
-        resolve(response);
-      })
-    })
-  }
-}
+// function promisify(api){
+//   return function(...args){
+//     return new Promise(function(resolve, reject){
+//       api(...args, function(err, response){
+//         if(err) return reject(err);
+//         resolve(response);
+//       })
+//     })
+//   }
+// }
 
 const yauzlFromBuffer = promisify(yauzl.fromBuffer);
 
